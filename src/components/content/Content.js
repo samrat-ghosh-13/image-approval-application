@@ -59,7 +59,8 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 24px 0;
+  margin-top: 24px;
+  margin-bottom: 40px;
 `;
 
 const DefaultMessage = styled.p`

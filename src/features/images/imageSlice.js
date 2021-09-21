@@ -1,10 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchImages } from "./imageApi";
 
+// using fetchedImages as an object because the api returns one item at a time
+// using approvedImages, rejectedImages as on object with the key as the id so
+// that the entries are unique on the state updates.
 const initialState = {
   fetchedImages: {},
-  approvedImages: [],
-  rejectedImages: [],
+  approvedImages: {},
+  rejectedImages: {},
   loading: false,
 };
 
@@ -33,11 +36,17 @@ export const imageSlice = createSlice({
   reducers: {
     approved: (state, action) => {
       state.loading = true;
-      state.approvedImages = [...state.approvedImages, action.payload];
+      state.approvedImages = {
+        ...state.approvedImages,
+        [action.payload.id]: action.payload,
+      };
     },
     rejected: (state, action) => {
       state.loading = true;
-      state.rejectedImages = [...state.rejectedImages, action.payload];
+      state.rejectedImages = {
+        ...state.rejectedImages,
+        [action.payload.id]: action.payload,
+      };
     },
   },
   extraReducers: (builder) => {
@@ -57,6 +66,7 @@ export const { approved, rejected } = imageSlice.actions;
 // The function below is called a selector and allows us to select a value from
 // the state.
 export const getImages = (state) => state.images.fetchedImages;
-export const getApprovedImages = (state) => state.images.approvedImages;
+export const getApprovedImages = (state) =>
+  Object.values(state.images.approvedImages);
 
 export default imageSlice.reducer;
