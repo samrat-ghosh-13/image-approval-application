@@ -175,21 +175,20 @@ const ContentComponent = () => {
       <ThumbnailsContainer>
         {approvedImages.map((image, index) => {
           return (
-            <>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href={image.urls.full}
-                download={image.description}
-              >
-                <Thumbnails
-                  key={image.id}
-                  className={index === 0 ? "first" : ""}
-                  src={image.urls.thumb}
-                  alt={image.alt}
-                />
-              </a>
-            </>
+            <a
+              key={image.id}
+              target="_blank"
+              rel="noopener noreferrer"
+              href={image.urls.full}
+              download={image.description}
+            >
+              <Thumbnails
+                key={image.id}
+                className={index === 0 ? "first" : ""}
+                src={image.urls.thumb}
+                alt="thumbnails"
+              />
+            </a>
           );
         })}
       </ThumbnailsContainer>
