@@ -27,6 +27,8 @@ const Image = styled.img`
 /**
  * @name PlaceholderComponent
  * @description method to create the placeholder component
+ * @param handleClick callback function
+ * @params rest of the props in case of any
  * @returns placeholder component
  */
 const PlaceholderComponent = ({ handleClick, ...props }) => {
