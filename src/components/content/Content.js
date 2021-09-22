@@ -5,16 +5,22 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   getImages,
   getApprovedImages,
+  getRejectedImages,
   fetchImagesAsync,
   approved,
   rejected,
+  updateImage,
+  getLoadingState,
 } from "../../features/images/imageSlice";
 
 // components
 import PlaceholderComponent from "../placeholder/Placeholder";
 import ButtonComponent from "../button/Button";
+import LoaderComponent from "../loader/Loader";
 
-// icons - impoting svgs as react component
+// icons
+// impoting svgs as react component
+// importing pngs
 import { ReactComponent as ApproveIcon } from "../../assets/approve.svg";
 import { ReactComponent as CancelIcon } from "../../assets/cancel.svg";
 import plusIcon from "../../assets/add.png";
@@ -43,6 +49,7 @@ const Image = styled.img`
   width: calc(100vw - 48px);
   max-width: 1240px;
   height: auto;
+  border-radius: 4px;
 `;
 
 const PlusImage = styled.img`
@@ -79,6 +86,8 @@ const Thumbnails = styled.img`
   width: 60px;
   height: 60px;
   margin-left: 16px;
+  border-radius: 4px;
+  cursor: pointer;
   &.first {
     margin-left: 0;
   }
@@ -88,7 +97,37 @@ const ContentComponent = () => {
   // creating select and dispatch instance from
   const images = useSelector(getImages);
   const approvedImages = useSelector(getApprovedImages);
+  const rejectedImages = useSelector(getRejectedImages);
+  const isLoading = useSelector(getLoadingState);
   const dispatch = useDispatch();
+
+  const fetchImages = async () => {
+    await dispatch(fetchImagesAsync());
+    if (images.id in rejectedImages) {
+      handleRejectedImages();
+    }
+  };
+
+  let retryCount = 0;
+  const handleRejectedImages = () => {
+    if (retryCount < 5) {
+      retryCount += 1;
+      fetchImages();
+    } else if (retryCount >= 5) {
+      retryCount = 0;
+      dispatch(updateImage());
+    }
+  };
+
+  const handleCancel = () => {
+    dispatch(rejected(images));
+    fetchImages();
+  };
+
+  const handleClick = () => {
+    dispatch(approved(images));
+    fetchImages();
+  };
 
   const showImages = () => {
     return (
@@ -101,7 +140,7 @@ const ContentComponent = () => {
   const showPlaceholder = (type) => {
     return (
       <PlaceholderComponent
-        handleClick={() => dispatch(fetchImagesAsync())}
+        handleClick={() => handleRejectedImages()}
         type={type}
       />
     );
@@ -112,26 +151,25 @@ const ContentComponent = () => {
       <ThumbnailsContainer>
         {approvedImages.map((image, index) => {
           return (
-            <Thumbnails
-              key={image.id}
-              className={index === 0 ? "first" : ""}
-              src={image.urls.thumb}
-              alt={image.alt}
-            />
+            <>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href={image.urls.full}
+                download={image.description}
+              >
+                <Thumbnails
+                  key={image.id}
+                  className={index === 0 ? "first" : ""}
+                  src={image.urls.thumb}
+                  alt={image.alt}
+                />
+              </a>
+            </>
           );
         })}
       </ThumbnailsContainer>
     );
-  };
-
-  const handleCancel = () => {
-    dispatch(rejected(images));
-    dispatch(fetchImagesAsync());
-  };
-
-  const handleClick = () => {
-    dispatch(approved(images));
-    dispatch(fetchImagesAsync());
   };
 
   const showButtonContainer = () => {
@@ -158,6 +196,7 @@ const ContentComponent = () => {
 
   return (
     <Content>
+      {isLoading ? <LoaderComponent /> : ""}
       <ApprovedImagesText>
         Approved Images ({approvedImages.length})
       </ApprovedImagesText>

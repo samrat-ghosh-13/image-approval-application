@@ -18,17 +18,9 @@ const initialState = {
 // typically used to make async requests.
 export const fetchImagesAsync = createAsyncThunk(
   "images/fetchRandomImages",
-  async (_, { rejectWithValue, getState }) => {
-    const state = getState();
+  async (_, { rejectWithValue }) => {
     try {
       const { response } = await fetchImages();
-
-      // checking whether the id is already part of the rejected images
-      // if yes then fetch another image again
-      // if no then continue
-      if (response.id in state.images.rejectedImages) {
-        fetchImagesAsync();
-      }
       // The value we return becomes the `fulfilled` action payload
       return response;
     } catch (err) {
@@ -62,6 +54,9 @@ export const imageSlice = createSlice({
         [action.payload.id]: action.payload,
       };
     },
+    updateImage: (state) => {
+      state.fetchedImages = initialState.fetchedImages;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -69,18 +64,20 @@ export const imageSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchImagesAsync.fulfilled, (state, action) => {
-        state.loading = false;
         state.fetchedImages = { ...action.payload };
+        state.loading = false;
       });
   },
 });
 
-export const { approved, rejected } = imageSlice.actions;
+export const { approved, rejected, updateImage } = imageSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state.
 export const getImages = (state) => state.images.fetchedImages;
 export const getApprovedImages = (state) =>
   Object.values(state.images.approvedImages);
+export const getRejectedImages = (state) => state.images.rejectedImages;
+export const getLoadingState = (state) => state.images.loading;
 
 export default imageSlice.reducer;
