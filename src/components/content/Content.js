@@ -27,6 +27,7 @@ const Content = styled.div`
   margin: 0 auto;
   margin-top: 60px;
   padding: 24px;
+  overflow: hidden;
 `;
 
 const ApprovedImagesText = styled.p`
@@ -70,6 +71,7 @@ const DefaultMessage = styled.p`
 const ThumbnailsContainer = styled.div`
   display: flex;
   width: calc(100vw - 48px);
+  max-width: 1240px;
   overflow-x: scroll;
 `;
 
