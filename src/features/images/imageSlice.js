@@ -18,10 +18,24 @@ const initialState = {
 // typically used to make async requests.
 export const fetchImagesAsync = createAsyncThunk(
   "images/fetchRandomImages",
-  async () => {
-    const { response } = await fetchImages();
-    // The value we return becomes the `fulfilled` action payload
-    return response;
+  async (_, { rejectWithValue, getState }) => {
+    const state = getState();
+    try {
+      const { response } = await fetchImages();
+
+      // checking whether the id is already part of the rejected images
+      // if yes then fetch another image again
+      // if no then continue
+      if (response.id in state.images.rejectedImages) {
+        fetchImagesAsync();
+      }
+      // The value we return becomes the `fulfilled` action payload
+      return response;
+    } catch (err) {
+      // Use `err.response.data` as `action.payload` for a `rejected` action,
+      // by explicitly returning it using the `rejectWithValue()` utility
+      return rejectWithValue(err.response.data);
+    }
   }
 );
 
