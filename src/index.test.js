@@ -1,15 +1,23 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import { store } from './app/store';
-import App from './App';
+import React from "react";
+import { render } from "@testing-library/react";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
-test('renders learn react link', () => {
+// components
+import HeaderComponent from "./components/header/Header";
+import FooterComponent from "./components/footer/Footer";
+import ContentComponent from "./components/content/Content";
+
+test("renders learn react link", () => {
   const { getByText } = render(
     <Provider store={store}>
-      <App />
+      <div className="app">
+        <HeaderComponent />
+        <ContentComponent />
+        <FooterComponent />
+      </div>
     </Provider>
   );
 
-  expect(getByText(/learn/i)).toBeInTheDocument();
+  expect(getByText(/Image Approval Application/i)).toBeInTheDocument();
 });
