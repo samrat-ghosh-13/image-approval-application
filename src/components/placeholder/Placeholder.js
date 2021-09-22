@@ -14,7 +14,8 @@ const Placeholder = styled.div`
   align-items: center;
   cursor: pointer;
   max-width: 1240px;
-  width: ${(props) => (props.type === "default" ? "calc(100vw - 48px)" : "104px")};
+  width: ${(props) =>
+    props.type === "default" ? "calc(100vw - 48px)" : "104px"};
   height: ${(props) => (props.type === "default" ? "400px" : "64px")};
 `;
 
@@ -23,6 +24,11 @@ const Image = styled.img`
   width: 24px;
 `;
 
+/**
+ * @name PlaceholderComponent
+ * @description method to create the placeholder component
+ * @returns placeholder component
+ */
 const PlaceholderComponent = ({ handleClick, ...props }) => {
   return (
     <Placeholder onClick={() => handleClick()} {...props}>

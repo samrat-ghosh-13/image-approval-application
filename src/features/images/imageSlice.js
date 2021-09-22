@@ -1,4 +1,7 @@
+// redux toolkit
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
+// api config
 import { fetchImages } from "./imageApi";
 
 // using fetchedImages as an object because the api returns one item at a time
@@ -66,14 +69,22 @@ export const imageSlice = createSlice({
       .addCase(fetchImagesAsync.fulfilled, (state, action) => {
         state.fetchedImages = { ...action.payload };
         state.loading = false;
+      })
+      .addCase(fetchImagesAsync.rejected, (state) => {
+        state.fetchedImages = initialState.fetchedImages;
+        state.loading = false;
+        alert("Unable to fetch images from Unsplash, please try again later!");
       });
   },
 });
 
 export const { approved, rejected, updateImage } = imageSlice.actions;
 
-// The function below is called a selector and allows us to select a value from
-// the state.
+// The function below is called a selector and allows us to select a value from the state.
+// getImages is used to fetch the current image from the state
+// getApprovedImages is used to fetch the approved images
+// getRejectedImages is used to fetch the rejected images
+// getLoadingState is used to fetch the loading state
 export const getImages = (state) => state.images.fetchedImages;
 export const getApprovedImages = (state) =>
   Object.values(state.images.approvedImages);

@@ -15,7 +15,9 @@ const reducer = { images: imageReducer };
 // pre loaded state from state
 const preloadedState = loadState();
 
-// store
+// creating the store with configure store by
+// passing the reducer
+// passing the preloaded state that we fetch from localstorage
 export const store = configureStore({
   reducer,
   preloadedState,

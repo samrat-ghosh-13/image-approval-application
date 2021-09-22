@@ -93,14 +93,24 @@ const Thumbnails = styled.img`
   }
 `;
 
+/**
+ * @name ContentComponent
+ * @description method to create the content component
+ * @returns content component
+ */
 const ContentComponent = () => {
-  // creating select and dispatch instance from
+  // created the below to get the states from the store
   const images = useSelector(getImages);
   const approvedImages = useSelector(getApprovedImages);
   const rejectedImages = useSelector(getRejectedImages);
   const isLoading = useSelector(getLoadingState);
+
+  // creating an instance of dispatch
   const dispatch = useDispatch();
 
+  // fetchImages is used to trigger the fetchImagesAsync dispatch
+  // that fetches the images from unsplash, if the images are part of
+  // rejected images then it will go to handleRejectedImages method
   const fetchImages = async () => {
     await dispatch(fetchImagesAsync());
     if (images.id in rejectedImages) {
@@ -108,7 +118,13 @@ const ContentComponent = () => {
     }
   };
 
+  // retryCount is used to track the number of retries, max 5 is allowed for the scenario where
+  // 5 random images are already part of the rejected state
   let retryCount = 0;
+
+  // handleRejectedImages gets triggered from fetchImages, it will check the rejected state and call
+  // fetchImages again to make the API call to fetch the images. In a scenario where 5 random images are already part of the rejected state
+  // it will update the retry count to 0 and update the current image state to empty or {}
   const handleRejectedImages = () => {
     if (retryCount < 5) {
       retryCount += 1;
@@ -119,16 +135,22 @@ const ContentComponent = () => {
     }
   };
 
+  // handleCancel gets triggered from the cancel button
+  // it dispatch the rejected image method and then calls the fetch images method
   const handleCancel = () => {
     dispatch(rejected(images));
     fetchImages();
   };
 
+  // handleClick gets triggered from the approve button
+  // it dispatch the approved image method and then calls the fetch images method
   const handleClick = () => {
     dispatch(approved(images));
     fetchImages();
   };
 
+  // JSX methods begins here
+  // JSX for images
   const showImages = () => {
     return (
       <ImageContainer>
@@ -137,6 +159,7 @@ const ContentComponent = () => {
     );
   };
 
+  // JSX for placeholder
   const showPlaceholder = (type) => {
     return (
       <PlaceholderComponent
@@ -146,6 +169,7 @@ const ContentComponent = () => {
     );
   };
 
+  // JSX for thumbnails
   const showThumbnails = () => {
     return (
       <ThumbnailsContainer>
@@ -172,6 +196,7 @@ const ContentComponent = () => {
     );
   };
 
+  // JSX for buttons
   const showButtonContainer = () => {
     return (
       <ButtonContainer>
@@ -185,15 +210,17 @@ const ContentComponent = () => {
     );
   };
 
+  // JSX for default message
   const showDefaultMessage = () => {
     return (
       <DefaultMessage>
         Click on the <PlusImage src={plusIcon} alt="plus icon" /> in order to
-        get image recommendations
+        get image recommendations from Unsplash
       </DefaultMessage>
     );
   };
 
+  // JSX that gets returned by the content component
   return (
     <Content>
       {isLoading ? <LoaderComponent /> : ""}
