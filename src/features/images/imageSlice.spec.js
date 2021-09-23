@@ -37,17 +37,13 @@ describe("image reducer", () => {
   };
 
   it("should handle the initial state", () => {
-    expect(imageReducer(undefined, { type: "unknown" })).toEqual({
-      fetchedImages: {},
-      approvedImages: {},
-      rejectedImages: {},
-      loading: false,
-    });
+    const actual = imageReducer(initialState, { type: "unknown" });
+    expect(actual.fetchedImages).deep.equal({});
   });
 
   it("should handle new images", () => {
     const actual = imageReducer(initialState, updateImage(demoImage));
-    expect(actual.fetchedImages).toEqual(demoImage);
+    expect(actual.fetchedImages).to.eq(demoImage);
   });
 
   it("should handle approved images", () => {
@@ -56,7 +52,7 @@ describe("image reducer", () => {
       Object.values(actual.approvedImages).find(
         (item) => item.id === demoImage.id
       )
-    ).toEqual(demoImage);
+    ).to.eq(demoImage);
   });
 
   it("should handle rejected images", () => {
@@ -65,6 +61,6 @@ describe("image reducer", () => {
       Object.values(actual.rejectedImages).find(
         (item) => item.id === demoImage.id
       )
-    ).toEqual(demoImage);
+    ).to.eq(demoImage);
   });
 });
