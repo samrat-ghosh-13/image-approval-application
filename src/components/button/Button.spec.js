@@ -32,8 +32,8 @@ describe("unit testing of button component", () => {
 
   it("renders the button classnames, types, size", () => {
     mount(
-      <Button 
-        classname="unit__testing" 
+      <Button
+        classname="unit__testing"
         type="unit__testing--type"
         size="unit__testing--size"
         disabled={false}
@@ -44,5 +44,18 @@ describe("unit testing of button component", () => {
     cy.get(".button").should("exist");
     cy.get(".button__text").should("exist");
     cy.get(".button__text").contains("Testing");
+  });
+
+  it("renders the button clicks/callbacks", () => {
+    const onClick = cy.stub().as("onClick");
+    mount(
+      <Button classname="unit__testing" handleClick={() => onClick()}>
+        Testing
+      </Button>
+    );
+    cy.get(".button").should("exist");
+    cy.get(".button__text").should("exist");
+    cy.get(".button").click();
+    cy.get("@onClick").should("have.been.calledOnce");
   });
 });
