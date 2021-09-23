@@ -27,5 +27,5 @@ export const store = configureStore({
 store.subscribe(() => {
   // setting value in local storage is expensive so using throttle function to reduce the overhead
   // in case of fast state changes
-  throttle(saveState(store.getState(), 1000));
+  throttle(() => saveState(store.getState(), 1000));
 });

@@ -145,10 +145,10 @@ const ContentComponent = () => {
     fetchImages();
   };
 
-  // debounceApprovedClick debounces the approved button click for the 2 secs
+  // debounceApprovedClick debounces the approved button click for the 0.5 secs
   // aggregates the method call as this triggers an API call
   // continuos clicks can create unnecessary overhead
-  const debounceRejectedClick = debounce(() => handleCancel(), 2000);
+  const debounceRejectedClick = debounce(() => handleCancel(), 500);
 
   // handleClick gets triggered from the debounceApprovedClick aggregating the calls made in 2 secs
   // it dispatch the approved image method and then calls the fetch images method
@@ -157,10 +157,10 @@ const ContentComponent = () => {
     fetchImages();
   };
 
-  // debounceApprovedClick debounces the approved button click for the 2 secs
+  // debounceApprovedClick debounces the approved button click for the 0.5 secs
   // aggregates the method call as this triggers an API call
   // continuos clicks can create unnecessary overhead
-  const debounceApprovedClick = debounce(() => handleClick(), 2000);
+  const debounceApprovedClick = debounce(() => handleClick(), 500);
 
   // JSX methods begins here
   // JSX for images
