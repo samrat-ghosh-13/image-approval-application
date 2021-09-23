@@ -1,9 +1,9 @@
 # Experience
 
 The challenge was quite exciting because of the following reasons
-- using redux toolkit for the first time, I was aware of flux pattern and used the same in Vue with Vuex. Previously worked with context API.
-- using styled components for the first time, previously worked with CSS, SCSS. Really liked the CSS in JS solution, my new favorite.
-- using unsplash to fetch fantastic images.
+- Using redux toolkit for the first time, I was aware of flux pattern and used the same in Vue with Vuex. Previously worked with context API.
+- Using styled components for the first time, previously worked with CSS, SCSS. Really liked the CSS in JS solution, my new favorite.
+- Using unsplash to fetch fantastic images.
 
 ## Tech Stack
 
