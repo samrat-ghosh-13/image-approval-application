@@ -25,6 +25,9 @@ import { ReactComponent as ApproveIcon } from "../../assets/approve.svg";
 import { ReactComponent as CancelIcon } from "../../assets/cancel.svg";
 import plusIcon from "../../assets/add.png";
 
+// utils
+import { debounce } from "../../utils/utils";
+
 // styles with styled components
 import styled from "styled-components";
 
@@ -142,12 +145,22 @@ const ContentComponent = () => {
     fetchImages();
   };
 
-  // handleClick gets triggered from the approve button
+  // debounceApprovedClick debounces the approved button click for the 2 secs
+  // aggregates the method call as this triggers an API call
+  // continuos clicks can create unnecessary overhead
+  const debounceRejectedClick = debounce(() => handleCancel(), 2000);
+
+  // handleClick gets triggered from the debounceApprovedClick aggregating the calls made in 2 secs
   // it dispatch the approved image method and then calls the fetch images method
   const handleClick = () => {
     dispatch(approved(images));
     fetchImages();
   };
+
+  // debounceApprovedClick debounces the approved button click for the 2 secs
+  // aggregates the method call as this triggers an API call
+  // continuos clicks can create unnecessary overhead
+  const debounceApprovedClick = debounce(() => handleClick(), 2000);
 
   // JSX methods begins here
   // JSX for images
@@ -199,10 +212,16 @@ const ContentComponent = () => {
   const showButtonContainer = () => {
     return (
       <ButtonContainer>
-        <ButtonComponent type="cancel" handleClick={() => handleCancel()}>
+        <ButtonComponent
+          type="cancel"
+          handleClick={() => debounceRejectedClick()}
+        >
           <CancelIcon />
         </ButtonComponent>
-        <ButtonComponent type="check" handleClick={() => handleClick()}>
+        <ButtonComponent
+          type="check"
+          handleClick={() => debounceApprovedClick()}
+        >
           <ApproveIcon />
         </ButtonComponent>
       </ButtonContainer>
