@@ -134,7 +134,7 @@ const ContentComponent = () => {
       fetchImages();
     } else if (retryCount >= 5) {
       retryCount = 0;
-      dispatch(updateImage());
+      dispatch(updateImage({}));
     }
   };
 

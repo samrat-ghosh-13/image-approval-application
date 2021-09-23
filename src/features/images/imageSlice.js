@@ -57,8 +57,9 @@ export const imageSlice = createSlice({
         [action.payload.id]: action.payload,
       };
     },
-    updateImage: (state) => {
-      state.fetchedImages = initialState.fetchedImages;
+    updateImage: (state, action) => {
+      // state.fetchedImages = initialState.fetchedImages;
+      state.fetchedImages = action.payload;
     },
   },
   extraReducers: (builder) => {
