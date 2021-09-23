@@ -44,7 +44,7 @@ const ButtonComponent = ({
   return (
     <Button
       data-testid="button"
-      classname={classname}
+      className={`button ${classname} ${size} ${type}`}
       size={size}
       type={type}
       disabled={disabled}
