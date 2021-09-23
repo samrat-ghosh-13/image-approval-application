@@ -1,5 +1,5 @@
 // prop-types
-import { func } from "prop-types";
+import { func, string } from "prop-types";
 
 // assets
 import plusIcon from "../../assets/add.png";
@@ -31,14 +31,16 @@ const Image = styled.img`
  * @name PlaceholderComponent
  * @description method to create the placeholder component
  * @param handleClick callback function
+ * @param type type of placeholder, default or normal
  * @params rest of the props in case of any
  * @returns placeholder component
  */
-const PlaceholderComponent = ({ handleClick, ...props }) => {
+const PlaceholderComponent = ({ handleClick, type, ...props }) => {
   return (
     <Placeholder
       className="placeholder"
       onClick={() => handleClick()}
+      type={type}
       {...props}
     >
       <Image className="placeholder__image" src={plusIcon} alt="plus icon" />
@@ -48,6 +50,7 @@ const PlaceholderComponent = ({ handleClick, ...props }) => {
 
 PlaceholderComponent.propTypes = {
   handleClick: func.isRequired,
+  type: string.isRequired,
 };
 
 export default PlaceholderComponent;

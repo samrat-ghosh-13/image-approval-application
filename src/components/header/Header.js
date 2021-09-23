@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 // css with styled components
 const Header = styled.header`
-  background: #fff;
-  border-bottom: 1px solid #ededed;
+  background: #f7f7f7;
+  border-bottom: 1px solid #cfcfcf;
   color: #000;
   height: 5rem;
   position: fixed;

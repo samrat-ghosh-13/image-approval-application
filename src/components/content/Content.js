@@ -171,7 +171,7 @@ const ContentComponent = () => {
           className="app__content__images-c__image"
           key={images.id}
           src={images.urls.regular}
-          alt={images.alt}
+          alt="Images"
         />
       </ImageContainer>
     );
@@ -181,7 +181,7 @@ const ContentComponent = () => {
   const showPlaceholder = (type) => {
     return (
       <PlaceholderComponent
-        className="app__content__placeholder"
+        className={`app__content__placeholder app__content__placeholder--${type}`}
         handleClick={() => handleRejectedImages()}
         type={type}
       />
@@ -224,6 +224,7 @@ const ContentComponent = () => {
         <ButtonComponent
           className="app__content__buttons-c__button--cancel"
           type="cancel"
+          label="cancel"
           handleClick={() => debounceRejectedClick()}
         >
           <CancelIcon className="app__content__buttons-c__button__icon--cancel" />
@@ -231,6 +232,7 @@ const ContentComponent = () => {
         <ButtonComponent
           className="app__content__buttons-c__button--approve"
           type="check"
+          label="check"
           handleClick={() => debounceApprovedClick()}
         >
           <ApproveIcon className="app__content__buttons-c__button__icon--approve" />

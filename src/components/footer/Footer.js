@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 // css with styled components
 const Footer = styled.footer`
-  background: #fff;
+  background: #f7f7f7;
   border-top: 1px solid #ededed;
   position: fixed;
   bottom: 0;

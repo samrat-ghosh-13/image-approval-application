@@ -8,6 +8,7 @@ import { mount } from "@cypress/react";
 // component
 import Content from "./Content";
 
+// rest will be captured on e2e tests
 describe("unit testing of content component", () => {
   it("renders content", () => {
     mount(

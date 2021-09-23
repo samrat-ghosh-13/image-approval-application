@@ -9,7 +9,7 @@ const Button = styled.button`
   border: 1px solid #000;
   border-radius: 40px;
   padding: 8px;
-  color: #000;
+  color: #fff;
   width: 160px;
   margin-left: ${(props) => (props.type === "cancel" ? "0" : "16px")};
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
@@ -17,7 +17,7 @@ const Button = styled.button`
 `;
 
 const Span = styled.span`
-  color: #000;
+  color: #fff;
 `;
 
 /**
@@ -39,6 +39,7 @@ const ButtonComponent = ({
   disabled,
   size,
   handleClick,
+  label,
   ...props
 }) => {
   return (
@@ -49,6 +50,7 @@ const ButtonComponent = ({
       type={type}
       disabled={disabled}
       onClick={(event) => handleClick(event)}
+      aria-label={label}
       {...props}
     >
       <Span className="button__text" data-testid="button__text">
@@ -78,6 +80,7 @@ ButtonComponent.defaultProps = {
   classname: "",
   type: "",
   size: "button--medium",
+  label: "button"
 };
 
 export default ButtonComponent;
