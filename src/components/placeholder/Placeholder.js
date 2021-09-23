@@ -1,3 +1,6 @@
+// prop-types
+import { func } from "prop-types";
+
 // assets
 import plusIcon from "../../assets/add.png";
 
@@ -33,10 +36,18 @@ const Image = styled.img`
  */
 const PlaceholderComponent = ({ handleClick, ...props }) => {
   return (
-    <Placeholder onClick={() => handleClick()} {...props}>
-      <Image src={plusIcon} alt="plus icon" />
+    <Placeholder
+      className="placeholder"
+      onClick={() => handleClick()}
+      {...props}
+    >
+      <Image className="placeholder__image" src={plusIcon} alt="plus icon" />
     </Placeholder>
   );
+};
+
+PlaceholderComponent.propTypes = {
+  handleClick: func.isRequired,
 };
 
 export default PlaceholderComponent;

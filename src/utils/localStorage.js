@@ -1,4 +1,4 @@
-// method that fetches the state from local storage
+// method that fetches the state from local storage to maintain persistence
 export const loadState = () => {
   try {
     const state = localStorage.getItem("image-approval-app-state");

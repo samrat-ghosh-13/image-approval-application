@@ -166,8 +166,13 @@ const ContentComponent = () => {
   // JSX for images
   const showImages = () => {
     return (
-      <ImageContainer>
-        <Image key={images.id} src={images.urls.regular} alt={images.alt} />
+      <ImageContainer className="app__content__images-c">
+        <Image
+          className="app__content__images-c__image"
+          key={images.id}
+          src={images.urls.regular}
+          alt={images.alt}
+        />
       </ImageContainer>
     );
   };
@@ -176,6 +181,7 @@ const ContentComponent = () => {
   const showPlaceholder = (type) => {
     return (
       <PlaceholderComponent
+        className="app__content__placeholder"
         handleClick={() => handleRejectedImages()}
         type={type}
       />
@@ -185,7 +191,7 @@ const ContentComponent = () => {
   // JSX for thumbnails
   const showThumbnails = () => {
     return (
-      <ThumbnailsContainer>
+      <ThumbnailsContainer className="app__content__thumb-c">
         {approvedImages.map((image, index) => {
           return (
             <a
@@ -194,12 +200,15 @@ const ContentComponent = () => {
               rel="noopener noreferrer"
               href={image.urls.full}
               download={image.description}
+              className="app__content__thumb-c__anchor"
             >
               <Thumbnails
                 key={image.id}
-                className={index === 0 ? "first" : ""}
                 src={image.urls.thumb}
                 alt="thumbnails"
+                className={`app__content__thumb-c__anchor__thumbnails ${
+                  index === 0 ? "first" : ""
+                }`}
               />
             </a>
           );
@@ -211,18 +220,20 @@ const ContentComponent = () => {
   // JSX for buttons
   const showButtonContainer = () => {
     return (
-      <ButtonContainer>
+      <ButtonContainer className="app__content__buttons-c">
         <ButtonComponent
+          className="app__content__buttons-c__button--cancel"
           type="cancel"
           handleClick={() => debounceRejectedClick()}
         >
-          <CancelIcon />
+          <CancelIcon className="app__content__buttons-c__button__icon--cancel" />
         </ButtonComponent>
         <ButtonComponent
+          className="app__content__buttons-c__button--approve"
           type="check"
           handleClick={() => debounceApprovedClick()}
         >
-          <ApproveIcon />
+          <ApproveIcon className="app__content__buttons-c__button__icon--approve" />
         </ButtonComponent>
       </ButtonContainer>
     );
@@ -231,18 +242,23 @@ const ContentComponent = () => {
   // JSX for default message
   const showDefaultMessage = () => {
     return (
-      <DefaultMessage>
-        Click on the <PlusImage src={plusIcon} alt="plus icon" /> in order to
-        get image recommendations from Unsplash
+      <DefaultMessage className="app__content__message">
+        Click on the{" "}
+        <PlusImage
+          className="app__content__message__icon"
+          src={plusIcon}
+          alt="plus icon"
+        />{" "}
+        in order to get image recommendations from Unsplash
       </DefaultMessage>
     );
   };
 
   // JSX that gets returned by the content component
   return (
-    <Content>
-      {isLoading ? <LoaderComponent /> : ""}
-      <ApprovedImagesText>
+    <Content className="app__content">
+      {isLoading ? <LoaderComponent className="app__content__loader" /> : ""}
+      <ApprovedImagesText className="app__content__approved-images-text">
         Approved Images ({approvedImages.length})
       </ApprovedImagesText>
       {approvedImages.length ? showThumbnails() : showPlaceholder("normal")}
