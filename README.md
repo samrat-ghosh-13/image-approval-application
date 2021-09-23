@@ -6,11 +6,22 @@ The challenge was quite exciting because of the following reasons
 - using unsplash to fetch fantastic images.
 
 ## Tech Stack
+
 - React
 - Redux
 - Styled Components
 - Cypress
 - GitHub Actions for running the test cases post commit on "main" branch
+
+## Testing
+
+- You can check the status of the test cases by going to the GitHub Actions tab at https://github.com/samrat-ghosh-13/image-approval-application/actions
+
+## Deployment
+
+#### The project is deployed using vercel and can be found at the following urls: 
+- http://image-approval-application.vercel.app/
+- Deployment logs: https://github.com/samrat-ghosh-13/image-approval-application/deployments
 
 ## Available Scripts
 
