@@ -11,6 +11,7 @@ The challenge was quite exciting because of the following reasons
 - Redux
 - Styled Components
 - Cypress
+- Unsplash-js (for fetching images from unsplash)
 - GitHub Actions for running the test cases post commit on "main" branch
 
 ## Testing
