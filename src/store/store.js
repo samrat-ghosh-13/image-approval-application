@@ -18,8 +18,8 @@ const preloadedState = loadState();
 /**
  * @name store
  * @description method creating the store with configure store
- * @param reducer
- * @param preloadedState
+ * @param {*} reducer
+ * @param {*} preloadedState
  * @returns store with reducers and pre-loaded state if present
  */
 export const store = configureStore({

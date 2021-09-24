@@ -30,9 +30,9 @@ const Image = styled.img`
 /**
  * @name PlaceholderComponent
  * @description method to create the placeholder component
- * @param handleClick callback function
- * @param type type of placeholder, default or normal
- * @params rest of the props in case of any
+ * @param {*} handleClick callback function
+ * @param {*} type type of placeholder, default or normal
+ * @param {*} rest of the props in case of any
  * @returns placeholder component
  */
 const PlaceholderComponent = ({ handleClick, type, ...props }) => {

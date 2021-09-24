@@ -23,13 +23,13 @@ const Span = styled.span`
 /**
  * @name ButtonComponent
  * @description method to create the button component
- * @param classname
- * @param type
- * @param size
- * @param children
- * @param disabled
- * @param handleClick
- * @param ...props (custom props)
+ * @param {*} classname
+ * @param {*} type
+ * @param {*} size
+ * @param {*} children
+ * @param {*} disabled
+ * @param {*} handleClick
+ * @param {*} ...props (custom props)
  * @returns button component
  */
 const ButtonComponent = ({

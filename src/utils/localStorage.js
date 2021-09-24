@@ -1,7 +1,12 @@
-// method that fetches the state from local storage to maintain persistence
-export const loadState = () => {
+/**
+ * @name loadState
+ * @description method that fetches the state from local storage to maintain persistence
+ * @param {*} keyName
+ * @returns pre loaded state from local storage if present
+ */
+export const loadState = (keyName = "image-approval-app-state") => {
   try {
-    const state = localStorage.getItem("image-approval-app-state");
+    const state = localStorage.getItem(keyName);
     if (state === null) {
       return undefined;
     }
@@ -13,11 +18,17 @@ export const loadState = () => {
   }
 };
 
-// method that updates the state to local storage for persistence
-export const saveState = (state) => {
+/**
+ * @name saveState
+ * @description method that updates the state to local storage for persistence
+ * @param {*} state
+ * @param {*} keyName
+ * @returns none
+ */
+export const saveState = (state, keyName = "image-approval-app-state") => {
   try {
     const serializedState = JSON.stringify(state);
-    localStorage.setItem("image-approval-app-state", serializedState);
+    localStorage.setItem(keyName, serializedState);
   } catch (err) {
     console.log("localstorage write error", err);
   }
