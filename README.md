@@ -8,7 +8,7 @@ The challenge was quite exciting because of the following reasons
 ## Tech Stack
 
 - React
-- Redux
+- Redux using redux toolkit
 - Styled Components
 - Cypress
 - Unsplash-js (for fetching images from unsplash)
