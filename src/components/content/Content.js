@@ -102,18 +102,21 @@ const Thumbnails = styled.img`
  * @returns content component
  */
 const ContentComponent = () => {
-  // created the below to get the states from the store
+  // gets the states from the store
   const images = useSelector(getImages);
   const approvedImages = useSelector(getApprovedImages);
   const rejectedImages = useSelector(getRejectedImages);
   const isLoading = useSelector(getLoadingState);
 
-  // creating an instance of dispatch
+  // instantiating dispatch
   const dispatch = useDispatch();
 
-  // fetchImages is used to trigger the fetchImagesAsync dispatch
-  // that fetches the images from unsplash, if the images are part of
-  // rejected images then it will go to handleRejectedImages method
+  /**
+   * @name fetchImages
+   * @description is used to trigger the fetchImagesAsync dispatch which fetches the images from unsplash
+   * if the images are part of rejected images then it will go to handleRejectedImages method
+   * @returns none
+   */
   const fetchImages = async () => {
     await dispatch(fetchImagesAsync());
     if (images.id in rejectedImages) {
@@ -125,9 +128,13 @@ const ContentComponent = () => {
   // 5 random images are already part of the rejected state
   let retryCount = 0;
 
-  // handleRejectedImages gets triggered from fetchImages, it will check the rejected state and call
-  // fetchImages again to make the API call to fetch the images. In a scenario where 5 random images are already part of the rejected state
-  // it will update the retry count to 0 and update the current image state to empty or {}
+  /**
+   * @name handleRejectedImages
+   * @desciption handleRejectedImages gets triggered from fetchImages, it will check the rejected state and call
+   * fetchImages again to make the API call to fetch the images. In a scenario where 5 random images are already part of the rejected state
+   * it will update the retry count to 0 and update the current image state to empty or {}
+   * @returns none
+   */
   const handleRejectedImages = () => {
     if (retryCount < 5) {
       retryCount += 1;
@@ -138,28 +145,42 @@ const ContentComponent = () => {
     }
   };
 
-  // handleCancel gets triggered from the cancel button
-  // it dispatch the rejected image method and then calls the fetch images method
+  /**
+   * @name handleCancel
+   * @description handleCancel gets triggered from debounceRejectedClick
+   * it dispatches the rejected image method and then calls the fetch images method
+   * @returns none
+   */
   const handleCancel = () => {
     dispatch(rejected(images));
     fetchImages();
   };
 
-  // debounceApprovedClick debounces the approved button click for the 0.5 secs
-  // aggregates the method call as this triggers an API call
-  // continuos clicks can create unnecessary overhead
+  /**
+   * @name debounceRejectedClick
+   * @description debounceRejectedClick debounces the cancelled button click for the 0.5 secs
+   * aggregates the method call as this triggers an API call, continuos clicks can create unnecessary overhead
+   * @return none
+   */
   const debounceRejectedClick = debounce(() => handleCancel(), 500);
 
-  // handleClick gets triggered from the debounceApprovedClick aggregating the calls made in 2 secs
-  // it dispatch the approved image method and then calls the fetch images method
+  /**
+   * @name handleClick
+   * @description handleCancel gets triggered from debounceApprovedClick
+   * it dispatches the approved image method and then calls the fetch images method
+   * @returns none
+   */
   const handleClick = () => {
     dispatch(approved(images));
     fetchImages();
   };
 
-  // debounceApprovedClick debounces the approved button click for the 0.5 secs
-  // aggregates the method call as this triggers an API call
-  // continuos clicks can create unnecessary overhead
+  /**
+   * @name debounceApprovedClick
+   * @description debounceApprovedClick debounces the approved button click for the 0.5 secs
+   * aggregates the method call as this triggers an API call, continuos clicks can create unnecessary overhead
+   * @return none
+   */
   const debounceApprovedClick = debounce(() => handleClick(), 500);
 
   // JSX methods start here

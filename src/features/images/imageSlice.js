@@ -14,11 +14,15 @@ const initialState = {
   loading: false,
 };
 
-// The function below is called a thunk and allows us to perform async logic. It
-// can be dispatched like a regular action: `dispatch(fetchImagesAsync())`. This
-// will call the thunk with the `dispatch` function as the first argument. Async
-// code can then be executed and other actions can be dispatched. Thunks are
-// typically used to make async requests.
+/**
+ * @name fetchImagesAsync
+ * @description The function below is called a thunk and allows us to perform async logic.
+ * It can be dispatched like a regular action: `dispatch(fetchImagesAsync())`. This
+ * will call the thunk with the `dispatch` function as the first argument. Async
+ * code can then be executed and other actions can be dispatched. Thunks are
+ * typically used to make async requests.
+ * @returns random api response when fulfilled or error data in case of any errors
+ */
 export const fetchImagesAsync = createAsyncThunk(
   "images/fetchRandomImages",
   async (_, { rejectWithValue }) => {
@@ -34,11 +38,15 @@ export const fetchImagesAsync = createAsyncThunk(
   }
 );
 
-// The `reducers` field lets us define reducers and generate associated actions
-// Redux Toolkit allows us to write "mutating" logic in reducers. It
-// doesn't actually mutate the state because it uses the Immer library,
-// which detects changes to a "draft state" and produces a brand new
-// immutable state based off those changes
+/**
+ * @name imageSlice
+ * @description The `reducers` field lets us define reducers and generate associated actions
+ * Redux Toolkit allows us to write "mutating" logic in reducers. It
+ * doesn't actually mutate the state because it uses the Immer library,
+ * which detects changes to a "draft state" and produces a brand new
+ * immutable state based off those changes
+ * @returns returns none explicitly, we have to export the following new state, actions, reducers that are below
+ */
 export const imageSlice = createSlice({
   name: "images",
   initialState,
@@ -79,17 +87,22 @@ export const imageSlice = createSlice({
   },
 });
 
+// exports the actions
 export const { approved, rejected, updateImage } = imageSlice.actions;
 
-// The function below is called a selector and allows us to select a value from the state.
+// selectors and they allow us to select a value from the state.
 // getImages is used to fetch the current image from the state
-// getApprovedImages is used to fetch the approved images
-// getRejectedImages is used to fetch the rejected images
-// getLoadingState is used to fetch the loading state
 export const getImages = (state) => state.images.fetchedImages;
+
+// getApprovedImages is used to fetch the approved images
 export const getApprovedImages = (state) =>
   Object.values(state.images.approvedImages);
+
+// getRejectedImages is used to fetch the rejected images
 export const getRejectedImages = (state) => state.images.rejectedImages;
+
+// getLoadingState is used to fetch the loading state
 export const getLoadingState = (state) => state.images.loading;
 
+// exports the reducer that can be used to manage the state
 export default imageSlice.reducer;

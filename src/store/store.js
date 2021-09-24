@@ -15,17 +15,21 @@ const reducer = { images: imageReducer };
 // pre loaded state from state
 const preloadedState = loadState();
 
-// creating the store with configure store by
-// passing the reducer
-// passing the preloaded state that we fetch from localstorage
+/**
+ * @name store
+ * @description method creating the store with configure store
+ * @param reducer
+ * @param preloadedState
+ * @returns store with reducers and pre-loaded state if present
+ */
 export const store = configureStore({
   reducer,
   preloadedState,
 });
 
-// subscribing the store to publish changes to local storage whenever state updates
+// whenever the state changes, the store will publish the same state to local storage
 store.subscribe(() => {
-  // setting value in local storage is expensive so using throttle function to reduce the overhead
-  // in case of fast state changes
+  // in case of fast state changes, the throttle function will reduce the overhead
+  // by calling the local storage APIs in a given time interval
   throttle(() => saveState(store.getState(), 1000));
 });
