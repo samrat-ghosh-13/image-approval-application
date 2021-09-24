@@ -77,4 +77,12 @@ Mobile -
 
 The performance in mobile is taking a hit because of unused JS files from the production build, that can be improved by using caching for the images from unsplash and by requesting the images of the correct sizes. 
 
+## What can be improved? 
+
+- using color variables
+- using margin, spacing variables
+- using constants to store the static texts, that can support multiple languages
+
+
+
 
