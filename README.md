@@ -8,9 +8,10 @@ The challenge was quite exciting because of the following reasons
 ## Tech Stack
 
 - React
-- Redux
+- Redux using redux toolkit
 - Styled Components
 - Cypress
+- Unsplash-js (for fetching images from unsplash)
 - GitHub Actions for running the test cases post commit on "main" branch
 
 ## Testing
@@ -75,6 +76,14 @@ Mobile -
 
 ![lighthouse_mobile](https://user-images.githubusercontent.com/22419506/134629726-7bf086e5-ee10-4ae7-9ed7-598eef16e078.png)
 
-The performance in mobile is taking a hit because of unused JS files from the production build, that can be improved by using react lazy and suspense to load components on demand. 
+The performance in mobile is taking a hit because of unused JS files from the production build, that can be improved by using caching for the images from unsplash and by requesting the images of the correct sizes. 
+
+## What can be improved? 
+
+- using color variables
+- using margin, spacing variables
+- using constants to store the static texts, that can support multiple languages
+
+
 
 
