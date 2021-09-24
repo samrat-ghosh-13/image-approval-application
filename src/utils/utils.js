@@ -16,7 +16,7 @@ export const throttle = (func, delay = 1000) => {
 
 // custom debounce to run the function after specified interval if triggered multiple times during a specified time
 // it will aggreate the number of method calls to one
-export const debounce = (func, delay = 500) => {
+export const debounce = (func, delay = 1000) => {
   let timer;
   return (...args) => {
     clearTimeout(timer);

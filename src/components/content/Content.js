@@ -162,7 +162,7 @@ const ContentComponent = () => {
   // continuos clicks can create unnecessary overhead
   const debounceApprovedClick = debounce(() => handleClick(), 500);
 
-  // JSX methods begins here
+  // JSX methods start here
   // JSX for images
   const showImages = () => {
     return (
