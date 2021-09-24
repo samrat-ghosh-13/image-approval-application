@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import { store } from "./store/store";
@@ -6,17 +6,24 @@ import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
 
 // components
-import HeaderComponent from "./components/header/Header";
-import FooterComponent from "./components/footer/Footer";
-import ContentComponent from "./components/content/Content";
+import LoaderComponent from "./components/loader/Loader";
+
+// components on demand
+const HeaderComponent = React.lazy(() => import("./components/header/Header"));
+const FooterComponent = React.lazy(() => import("./components/footer/Footer"));
+const ContentComponent = React.lazy(() =>
+  import("./components/content/Content")
+);
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <div className="app">
-        <HeaderComponent />
-        <ContentComponent />
-        <FooterComponent />
+        <Suspense fallback={<LoaderComponent />}>
+          <HeaderComponent />
+          <ContentComponent />
+          <FooterComponent />
+        </Suspense>
       </div>
     </Provider>
   </React.StrictMode>,
